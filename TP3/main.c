@@ -3,7 +3,7 @@
 #include <time.h>
 #include <unistd.h>
 
-void afficherPointeHaut(LONGUEUR, SPACENUMBER){
+void afficherPointeHaut(int LONGUEUR, int SPACENUMBER){
     for(int i=0; i < LONGUEUR; i++){
         for(int j=0; j < SPACENUMBER-i; j++){
             printf(" ");
@@ -20,6 +20,6 @@ int main(){
     int LONGUEUR = 5;
     int SPACENUMBER = 10;
 
-        
+    afficherPointeHaut(LONGUEUR, SPACENUMBER);
     
 }
