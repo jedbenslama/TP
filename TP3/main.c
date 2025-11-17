@@ -32,6 +32,7 @@ int afficherPointeHaut(int LONGUEUR){
 }
 
 int afficherPointesCotey(int largeur){
+    int largeur_finale;
     for(int i=0; i<(int)((float)largeur/(float)2); i+=6){
         if(i>0){
             for(int j=0; j<i/2; j++){
@@ -42,6 +43,23 @@ int afficherPointesCotey(int largeur){
             printf("A");
         }
         printf("\n");
+        largeur_finale= largeur-i/2;
+    }
+    return largeur_finale;
+}
+
+int afficherBasEtoile(int largeur_actuelle, int largeur_totale, int LONGUEUR){
+    int espaces = largeur_totale-largeur_actuelle;
+    for(int i=0; i*2<espaces; i++){
+        for(int j=0; j<espaces-i*2; j++){
+            printf(" ");
+        }
+
+        for(int j=0; j<largeur_totale-2*(espaces-i*2); j++){
+            if(((largeur_totale-2*(espaces-i*2))/2 + j < (largeur_totale-2*(espaces-i*2))/2 + (espaces-i*2)))
+            printf("A");
+        }
+        printf("\n");
     }
     return 0;
 }
@@ -49,5 +67,7 @@ int afficherPointesCotey(int largeur){
 int main(){
     int LONGUEUR = 15;
     int largeur = afficherPointeHaut(LONGUEUR);
-    afficherPointesCotey(largeur);
+    int largeur_actuelle=afficherPointesCotey(largeur);
+    int be=afficherBasEtoile(largeur_actuelle, largeur, LONGUEUR);
+    printf("%d", largeur_actuelle);
 }
