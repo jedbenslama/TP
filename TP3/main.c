@@ -56,8 +56,11 @@ int afficherBasEtoile(int largeur_actuelle, int largeur_totale, int LONGUEUR){
         }
 
         for(int j=0; j<largeur_totale-2*(espaces-i*2); j++){
-            if(((largeur_totale-2*(espaces-i*2))/2 + j < (largeur_totale-2*(espaces-i*2))/2 + (espaces-i*2)))
-            printf("A");
+            if((j <= (2*(espaces-i*2))) || (j>=(largeur_totale-2*(espaces-i*2))-2*(espaces-i*2))){
+                printf("A");
+            }else{
+                printf(" ");
+            }
         }
         printf("\n");
     }
