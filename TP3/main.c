@@ -3,12 +3,9 @@
 #include <time.h>
 #include <unistd.h>
 
-int main(){
-    int LONGUEUR = 5;
-    int espaces_initiaux = 10;
-
+void afficherPointeHaut(LONGUEUR, SPACENUMBER){
     for(int i=0; i < LONGUEUR; i++){
-        for(int j=0; j < espaces_initiaux-i; j++){
+        for(int j=0; j < SPACENUMBER-i; j++){
             printf(" ");
         }
         printf("A");
@@ -17,5 +14,12 @@ int main(){
         }
         printf("\n");
     }
+}
+
+int main(){
+    int LONGUEUR = 5;
+    int SPACENUMBER = 10;
+
+        
     
 }
