@@ -3,11 +3,11 @@
 #include <time.h>
 #include <unistd.h>
 
-int afficherPointeHaut(int LONGUEUR){
+int afficherPointeHaut(int longueur){
     int last_line;
-    int spacenumber = (LONGUEUR-1)*3;
-    for(int i=0; i < LONGUEUR; i++){
-        if(i==LONGUEUR-1){
+    int spacenumber = (longueur-1)*3;
+    for(int i=0; i < longueur; i++){
+        if(i==longueur-1){
             for(int j=0; j < spacenumber-i; j++){
                 printf("_");
             }
@@ -20,7 +20,7 @@ int afficherPointeHaut(int LONGUEUR){
         for(int j=0; j < i*2; j++){
             printf("A");
         }
-        if(i==LONGUEUR-1){
+        if(i==longueur-1){
             for(int j=0; j < spacenumber-i; j++){
                 printf("_");
             }
@@ -48,7 +48,7 @@ int afficherPointesCotey(int largeur){
     return largeur_finale;
 }
 
-int afficherBasEtoile(int largeur_actuelle, int largeur_totale, int LONGUEUR){
+int afficherBasEtoile(int largeur_actuelle, int largeur_totale, int longueur){
     int espaces = largeur_totale-largeur_actuelle;
     for(int i=0; i*2<espaces; i++){
         for(int j=0; j<espaces-i*2; j++){
@@ -56,7 +56,7 @@ int afficherBasEtoile(int largeur_actuelle, int largeur_totale, int LONGUEUR){
         }
 
         for(int j=0; j<largeur_totale-2*(espaces-i*2); j++){
-            if((j <= (2*(espaces-i*2))) || (j>=(largeur_totale-2*(espaces-i*2))-2*(espaces-i*2))){
+            if((j < (2*(espaces-i*2))) || (j>=(largeur_totale-2*(espaces-i*2))-2*(espaces-i*2))){
                 printf("A");
             }else{
                 printf(" ");
@@ -68,9 +68,13 @@ int afficherBasEtoile(int largeur_actuelle, int largeur_totale, int LONGUEUR){
 }
 
 int main(){
-    int LONGUEUR = 15;
-    int largeur = afficherPointeHaut(LONGUEUR);
-    int largeur_actuelle=afficherPointesCotey(largeur);
-    int be=afficherBasEtoile(largeur_actuelle, largeur, LONGUEUR);
-    printf("%d", largeur_actuelle);
+    int longueur=0;
+    while (longueur<5)
+    {
+        printf("Veuillez saisir un nombre supérieur à 5\n> ");
+        scanf("%i",&longueur);
+    }
+    
+    int largeur = afficherPointeHaut(longueur);
+    int be=afficherBasEtoile(afficherPointesCotey(largeur), largeur, longueur);
 }
