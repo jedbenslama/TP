@@ -31,8 +31,23 @@ int afficherPointeHaut(int LONGUEUR){
     return last_line;
 }
 
+int afficherPointesCotey(int largeur){
+    for(int i=0; i<(int)((float)largeur/(float)2); i+=6){
+        if(i>0){
+            for(int j=0; j<i/2; j++){
+                printf(" ");
+            }
+        }
+        for(int j=0; j<largeur-i; j++){
+            printf("A");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
 int main(){
-    int LONGUEUR = 10;
-    printf("%d\n",afficherPointeHaut(LONGUEUR));
-    
+    int LONGUEUR = 15;
+    int largeur = afficherPointeHaut(LONGUEUR);
+    afficherPointesCotey(largeur);
 }
