@@ -16,6 +16,10 @@ int lireChoix(){
     printf("Votre choix : ");
     int choix;
     scanf("%d", &choix);
+    while(choix < 0 || choix > 6){
+        printf("Veuillez saisir un choix correct\n> ");
+        scanf("%d", &choix);
+    }
     return choix;
 }
 
@@ -95,12 +99,42 @@ float trouverMeilleureNoteControle(int data[30][3], int nombre_eleves, int contr
     return meilleure_note;
 }
 
-void afficherMeilleuresNotes(int data[30][3], int nombre_eleves, int controle_index){
+void afficherMeilleuresNotes(int data[30][3], int nombre_eleves){
     for(int i=0; i<3; i++){
         printf("Meilleure note au controle %d : %f\n", i+1, trouverMeilleureNoteControle(data, nombre_eleves, i));
     }
 }
 
 int main(){
-    // printf("Moyenne generale de la classe: %f\n", calculerMoyenneGenerale(data, nombre_eleves));
+    int data[30][3];
+    afficherMenu();
+    int choix = lireChoix();
+    int nombre_eleves;
+    while(1){
+        switch (choix)
+        {
+        case 0:
+            return 0;
+            break;
+        case 1:
+            nombre_eleves = saisirNombreEleves();
+            break;
+        case 2:
+            saisirNotes(data, nombre_eleves);
+            break;
+        case 3:
+            afficherNotes(data, nombre_eleves);
+            break;
+        case 4:
+            calculerMoyenneEleve(data, nombre_eleves);
+            break;
+        case 5:
+            printf("Moyenne generale de la classe: %f\n", calculerMoyenneGenerale(data, nombre_eleves));
+            break;
+        case 6:
+            afficherMeilleuresNotes(data, nombre_eleves);
+        default:
+            break;
+        }
+    }
 }
