@@ -108,9 +108,9 @@ void afficherMeilleuresNotes(int data[30][3], int nombre_eleves){
 int main(){
     int data[30][3];
     afficherMenu();
-    int choix = lireChoix();
     int nombre_eleves;
     while(1){
+        int choix = lireChoix();
         switch (choix)
         {
         case 0:
