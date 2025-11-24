@@ -68,8 +68,22 @@ float calculerMoyenneEleve(int data[30][3], int nombre_eleves){
     }
     indiceEleve--;
     float moyenne_eleve = ((float)data[indiceEleve][0] + (float)data[indiceEleve][1] + (float)data[indiceEleve][2])/3.0f;
+    printf("Moyenne de l'eleve%i: %f\n", indiceEleve, moyenne_eleve);
     return moyenne_eleve;
 }
 
+float calculerMoyenneGenerale(int data[30][3], int nombre_eleves){
+    float diviseur=0;
+    float dividende=0;
+    for(int i=0; i<nombre_eleves; i++){
+        for(int j=0; j<3; j++){
+            dividende+=data[i][j];
+            diviseur++;
+        }
+    }
+    return dividende/diviseur;
+}
+
 int main(){
+    
 }
