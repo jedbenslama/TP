@@ -36,40 +36,40 @@ int saisirNombreEleves(){
     return nombre_saisi;
 }
 
-void saisirNotes(int data[30][3], int nombre_eleves){
+void saisirNotes(float data[30][3], int nombre_eleves){
     for(int i=0; i<nombre_eleves; i++){
         printf("Eleve %i :\n",i+1);
         for(int j=0; j<3; j++){
-            int note;
+            float note;
             printf("  Note du controle %i (0 a 20) : ", j+1);
-            scanf("%d", &note);
+            scanf("%f", &note);
             while(note < 0 || note > 20){
                 printf("Veuillez saisir une note entre %d et %d : ", 0, 20);
-                scanf("%d", &note);
+                scanf("%f", &note);
             }
             data[i][j]=note;
         }
     }
 }
 
-void afficherNotes(int data[30][3], int nombre_eleves){
+void afficherNotes(float data[30][3], int nombre_eleves){
     printf("Tableau des notes\n");
     printf("Eleve\tC1\tC2\tC3");
     for(int i=0; i<nombre_eleves; i++){
-        printf("\n   %d\t", i);
+        printf("\n   %d\t", i+1);
         for(int j=0; j<3; j++){
-            printf("%d\t", data[i][j]);
+            printf("%.2f\t", data[i][j]);
         }
     }
     printf("\n");
 }
 
-float calculerMoyenneEleve(int data[30][3], int indiceEleve){
-    float moyenne_eleve = ((float)data[indiceEleve][0] + (float)data[indiceEleve][1] + (float)data[indiceEleve][2])/3.0f;
+float calculerMoyenneEleve(float data[30][3], int indiceEleve){
+    float moyenne_eleve = (data[indiceEleve][0] + data[indiceEleve][1] + data[indiceEleve][2])/3;
     return moyenne_eleve;
 }
 
-float calculerMoyenneGenerale(int data[30][3], int nombre_eleves){
+float calculerMoyenneGenerale(float data[30][3], int nombre_eleves){
     float diviseur=0;
     float dividende=0;
     for(int i=0; i<nombre_eleves; i++){
@@ -81,7 +81,7 @@ float calculerMoyenneGenerale(int data[30][3], int nombre_eleves){
     return dividende/diviseur;
 }
 
-float trouverMeilleureNoteControle(int data[30][3], int nombre_eleves, int controle_index){
+float trouverMeilleureNoteControle(float data[30][3], int nombre_eleves, int controle_index){
     float meilleure_note = 0.0f;
     for(int i=0; i<nombre_eleves; i++){
         if(data[i][controle_index] > meilleure_note){
@@ -91,14 +91,14 @@ float trouverMeilleureNoteControle(int data[30][3], int nombre_eleves, int contr
     return meilleure_note;
 }
 
-void afficherMeilleuresNotes(int data[30][3], int nombre_eleves){
+void afficherMeilleuresNotes(float data[30][3], int nombre_eleves){
     for(int i=0; i<3; i++){
-        printf("Meilleure note au controle %d : %f\n", i+1, trouverMeilleureNoteControle(data, nombre_eleves, i));
+        printf("Meilleure note au controle %d : %.2f\n", i+1, trouverMeilleureNoteControle(data, nombre_eleves, i));
     }
 }
 
 int main(){
-    int data[30][3];
+    float data[30][3];
     int nombre_eleves;
     int indiceEleve;
     while(1){
@@ -118,17 +118,17 @@ int main(){
             afficherNotes(data, nombre_eleves);
             break;
         case 4:
-            printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
+            printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves);
             scanf("%i", &indiceEleve);
             while(indiceEleve <= 0 || indiceEleve>nombre_eleves){
                 printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
                 scanf("%i", &indiceEleve);
             }
             indiceEleve--;
-            printf("Moyenne de l'eleve %i: %f\n", indiceEleve+1, calculerMoyenneEleve(data, nombre_eleves));
+            printf("Moyenne de l'eleve %i: %.2f\n", indiceEleve+1, calculerMoyenneEleve(data, indiceEleve));
             break;
         case 5:
-            printf("Moyenne generale de la classe: %f\n", calculerMoyenneGenerale(data, nombre_eleves));
+            printf("Moyenne generale de la classe: %.2f\n", calculerMoyenneGenerale(data, nombre_eleves));
             break;
         case 6:
             afficherMeilleuresNotes(data, nombre_eleves);
