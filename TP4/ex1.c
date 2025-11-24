@@ -100,6 +100,7 @@ void afficherMeilleuresNotes(int data[30][3], int nombre_eleves){
 int main(){
     int data[30][3];
     int nombre_eleves;
+    int indiceEleve;
     while(1){
         int choix = lireChoix();
         switch (choix)
@@ -117,7 +118,6 @@ int main(){
             afficherNotes(data, nombre_eleves);
             break;
         case 4:
-            int indiceEleve;
             printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
             scanf("%i", &indiceEleve);
             while(indiceEleve <= 0 || indiceEleve>nombre_eleves){
