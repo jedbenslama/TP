@@ -85,6 +85,15 @@ float calculerMoyenneGenerale(int data[30][3], int nombre_eleves){
     return dividende/diviseur;
 }
 
+float trouverMeilleureNoteControle(int data[30][3], int nombre_eleves, int controle_index){
+    float meilleure_note = 0.0f;
+    for(int i=0; i<nombre_eleves; i++){
+        if(data[i][controle_index] > meilleure_note){
+            meilleure_note = data[i][controle_index];
+        }
+    }
+}
+
 int main(){
     // printf("Moyenne generale de la classe: %f\n", calculerMoyenneGenerale(data, nombre_eleves));
 }
