@@ -47,6 +47,16 @@ void saisirNotes(int data[30][3], int nombre_eleves){
     }
 }
 
+void afficherNotes(int data[30][3], int nombre_eleves){
+    printf("Eleve\t C1\tC2\tC3\n");
+    for(int i=0; i<nombre_eleves; i++){
+        printf("\n    %d\t", i);
+        for(int j=0; j<3; j++){
+            printf("%d\t", data[i][j]);
+        }
+    }
+}
+
 int main(){
     
 }
