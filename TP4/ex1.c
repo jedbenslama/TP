@@ -13,6 +13,7 @@ void afficherMenu(){
 }
 
 int lireChoix(){
+    printf("\n");
     afficherMenu();
     printf("Votre choix : ");
     int choix;
@@ -21,6 +22,7 @@ int lireChoix(){
         printf("Veuillez saisir un choix correct\n> ");
         scanf("%d", &choix);
     }
+    printf("\n");
     return choix;
 }
 
