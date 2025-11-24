@@ -92,6 +92,7 @@ float trouverMeilleureNoteControle(int data[30][3], int nombre_eleves, int contr
             meilleure_note = data[i][controle_index];
         }
     }
+    return meilleure_note;
 }
 
 int main(){
