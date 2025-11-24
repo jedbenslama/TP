@@ -95,6 +95,12 @@ float trouverMeilleureNoteControle(int data[30][3], int nombre_eleves, int contr
     return meilleure_note;
 }
 
+void afficherMeilleuresNotes(int data[30][3], int nombre_eleves, int controle_index){
+    for(int i=0; i<3; i++){
+        printf("Meilleure note au controle %d : %f\n", i+1, trouverMeilleureNoteControle(data, nombre_eleves, i));
+    }
+}
+
 int main(){
     // printf("Moyenne generale de la classe: %f\n", calculerMoyenneGenerale(data, nombre_eleves));
 }
