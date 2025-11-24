@@ -19,7 +19,7 @@ int lireChoix(){
     return choix;
 }
 
-int saisirNombreEleves(){ // les commits de l'étape 1,2 et 3 sont presque tous faits au meme temps parce que j'ai oublié de commit et je viens de faire beaucoup de ctrl-z et ctrl-y pour pouvoir commit les etapes dans l'ordre
+int saisirNombreEleves(){
     int nombre_saisi = 0;
     while(nombre_saisi > 30 || nombre_saisi < 1){
         printf("Entrez le nombre d'élèves (1 a 30) : ");
@@ -28,6 +28,22 @@ int saisirNombreEleves(){ // les commits de l'étape 1,2 et 3 sont presque tous 
             return nombre_saisi;
         }
         printf("Valeur invalide\n");
+    }
+}
+
+int saisirNotes(int data[30][3], int nombre_eleves){
+    for(int i=0; i<nombre_eleves; i++){
+        printf("Eleve %i :\n",i+1);
+        for(int j=0; j<3; j++){
+            int note;
+            printf("  Note du controle %i (0 a 20) : ", j+1);
+            scanf("%d", &note);
+            while(note < 0 || note > 20){
+                printf("Veuillez saisir une note entre %d et %d : ", 0, 20);
+                scanf("%d", &note);
+            }
+            data[i][j]=note;
+        }
     }
 }
 
