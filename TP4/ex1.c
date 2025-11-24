@@ -13,6 +13,7 @@ void afficherMenu(){
 }
 
 int lireChoix(){
+    afficherMenu();
     printf("Votre choix : ");
     int choix;
     scanf("%d", &choix);
@@ -53,27 +54,18 @@ void saisirNotes(int data[30][3], int nombre_eleves){
 
 void afficherNotes(int data[30][3], int nombre_eleves){
     printf("Tableau des notes\n");
-    printf("Eleve\t C1\tC2\tC3\n");
+    printf("Eleve\tC1\tC2\tC3");
     for(int i=0; i<nombre_eleves; i++){
-        printf("\n    %d\t", i);
+        printf("\n   %d\t", i);
         for(int j=0; j<3; j++){
             printf("%d\t", data[i][j]);
         }
     }
+    printf("\n");
 }
 
-float calculerMoyenneEleve(int data[30][3], int nombre_eleves){
-    int indiceEleve;
-    printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
-    scanf("%i", &indiceEleve);
-    while(indiceEleve <= 0 || indiceEleve>nombre_eleves){
-        printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
-        scanf("%i", &indiceEleve);
-    }
-    indiceEleve--;
+float calculerMoyenneEleve(int data[30][3], int indiceEleve){
     float moyenne_eleve = ((float)data[indiceEleve][0] + (float)data[indiceEleve][1] + (float)data[indiceEleve][2])/3.0f;
-    // a mettre dans le main
-    printf("Moyenne de l'eleve%i: %f\n", indiceEleve, moyenne_eleve);
     return moyenne_eleve;
 }
 
@@ -107,7 +99,6 @@ void afficherMeilleuresNotes(int data[30][3], int nombre_eleves){
 
 int main(){
     int data[30][3];
-    afficherMenu();
     int nombre_eleves;
     while(1){
         int choix = lireChoix();
@@ -126,7 +117,15 @@ int main(){
             afficherNotes(data, nombre_eleves);
             break;
         case 4:
-            calculerMoyenneEleve(data, nombre_eleves);
+            int indiceEleve;
+            printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
+            scanf("%i", &indiceEleve);
+            while(indiceEleve <= 0 || indiceEleve>nombre_eleves){
+                printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
+                scanf("%i", &indiceEleve);
+            }
+            indiceEleve--;
+            printf("Moyenne de l'eleve %i: %f\n", indiceEleve+1, calculerMoyenneEleve(data, nombre_eleves));
             break;
         case 5:
             printf("Moyenne generale de la classe: %f\n", calculerMoyenneGenerale(data, nombre_eleves));
