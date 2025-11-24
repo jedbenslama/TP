@@ -48,6 +48,7 @@ void saisirNotes(int data[30][3], int nombre_eleves){
 }
 
 void afficherNotes(int data[30][3], int nombre_eleves){
+    printf("Tableau des notes\n");
     printf("Eleve\t C1\tC2\tC3\n");
     for(int i=0; i<nombre_eleves; i++){
         printf("\n    %d\t", i);
@@ -57,6 +58,18 @@ void afficherNotes(int data[30][3], int nombre_eleves){
     }
 }
 
+float calculerMoyenneEleve(int data[30][3], int nombre_eleves){
+    int indiceEleve;
+    printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
+    scanf("%i", &indiceEleve);
+    while(indiceEleve <= 0 || indiceEleve>nombre_eleves){
+        printf("Entrez l'indice de l'eleve (%d a %d): ", 1, nombre_eleves+1);
+        scanf("%i", &indiceEleve);
+    }
+    indiceEleve--;
+    float moyenne_eleve = ((float)data[indiceEleve][0] + (float)data[indiceEleve][1] + (float)data[indiceEleve][2])/3.0f;
+    return moyenne_eleve;
+}
+
 int main(){
-    
 }
