@@ -28,11 +28,11 @@ int saisirNombreEleves(){
     while(nombre_saisi > 30 || nombre_saisi < 1){
         printf("Entrez le nombre d'élèves (1 a 30) : ");
         scanf("%d", &nombre_saisi);
-        if(nombre_saisi <= 30 || nombre_saisi >= 1){
-            return nombre_saisi;
+        if(!(nombre_saisi <= 30 || nombre_saisi >= 1)){
+            printf("Valeur invalide\n");
         }
-        printf("Valeur invalide\n");
     }
+    return nombre_saisi;
 }
 
 void saisirNotes(int data[30][3], int nombre_eleves){
