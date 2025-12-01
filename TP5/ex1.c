@@ -131,6 +131,84 @@ void initialiser(int conso[7]){
     }
 }
 
+int calculerScoreSante(int conso[7], int objectifs[7]){
+    int score_de_base=50;
+    if(conso[0]>=objectifs[0]){
+        score_de_base+=10;
+    }
+    if(conso[4]>=objectifs[4]){
+        score_de_base+=10;
+    }
+    if(conso[5]>=objectifs[5]){
+        score_de_base+=10;
+    }
+    if(conso[6]>=objectifs[6]){
+        score_de_base+=10;
+    }
+    if(conso[2]>5){
+        for (int i = 0; i < conso[2]; i++){
+            if(i <= 15){
+                score_de_base++;
+            }else{
+                break;
+            }
+        }
+    }
+    if(conso[1]>3){
+        for (int i = 0; i < conso[1]; i++){
+            if(i <= 20){
+                score_de_base++;
+            }else{
+                break;
+            }
+        }
+    }
+    return score_de_base;
+}
+
+void afficherObjectifsEtScore(int conso[7], int objectifs[7]){
+    printf("\n====== Objectifs du jour ======\n");
+    printf("Categorie     Objectif Atteint ?\n");
+    
+    printf("Eau      :\t   ");
+    if(conso[0]>=objectifs[0]){
+        printf("✅");
+    }else{
+        printf("❌");
+    }
+    printf("\n");
+
+    printf("Cafe     :\t   (pas d objectif)\n");
+    printf("Bonbons  :\t   (pas d objectif)\n");
+    printf("Gateau   :\t   (pas d objectif)\n");
+
+    printf("Legumes  :\t   ");
+    if(conso[4]>=objectifs[4]){
+        printf("✅");
+    }else{
+        printf("❌");
+    }
+    printf("\n");
+
+    printf("Fruits   :\t   ");
+    if(conso[5]>=objectifs[5]){
+        printf("✅");
+    }else{
+        printf("❌");
+    }
+    printf("\n");
+
+    printf("Proteines:\t   ");
+    if(conso[6]>=objectifs[6]){
+        printf("✅");
+    }else{
+        printf("❌");
+    }
+    printf("\n");
+    printf("Score sante du jour : %d/100\n", calculerScoreSante(conso, objectifs));
+    printf("============================\n\n");
+}
+
 int main()
 {
     int conso[7];
@@ -142,7 +220,7 @@ int main()
         initialiser(conso);
     };
     int choice = -1;
-    while(choice!=3){
+    while(1){
         printf("\n");
         afficherMenu();
         printf("\n");
@@ -154,12 +232,16 @@ int main()
             case 2:
                 afficherResume(conso, objectifs);
                 break;
+            case 3:
+                afficherObjectifsEtScore(conso, objectifs);
+                break;
             case 4:
                 if(sauvegarder(conso)==0){
                     printf("Erreur lors de la sauvegarde\n");
                 }else{
                     printf("Sauvegarde réussie.\n");
                 };
+                return 0;
                 break;
             default:
                 printf("Choix incorrect\n");
