@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void afficherMenu(){
-    printf("========================\nSuivi de consommation\n========================\n1. Ajouter une consommation\n2. Afficher le resume du jour\n3. Afficher les objectifs et le score\n4. Sauvegarder et quitter\nVotre choix : ");
+    printf("========================\nSuivi de consommation\n========================\n1. Ajouter une consommation\n2. Afficher le resume du jour\n3. Afficher les objectifs et le score\n4. Choisir le resume d une date\n5. Sauvegarder et quitter\nVotre choix : ");
 }
 
 int getUserChoice(){
@@ -235,7 +236,7 @@ int main()
             case 3:
                 afficherObjectifsEtScore(conso, objectifs);
                 break;
-            case 4:
+            case 5:
                 if(sauvegarder(conso)==0){
                     printf("Erreur lors de la sauvegarde\n");
                 }else{
