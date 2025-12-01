@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 void afficherMenu(){
-    printf("========================\nSuivi de consommation\n========================\n1. Ajouter une consommation\n2. Afficher le resume du jour\n3. Sauvegarder et quitter\nVotre choix : ");
+    printf("========================\nSuivi de consommation\n========================\n1. Ajouter une consommation\n2. Afficher le resume du jour\n3. Afficher les objectifs et le score\n4. Sauvegarder et quitter\nVotre choix : ");
 }
 
 int getUserChoice(){
@@ -40,9 +40,9 @@ int humeurBonbons(int valeur){
 }
 
 int humeurLegumes(int valeur){
-    if(valeur<=3){
+    if(valeur<=1){
         return 0;
-    }else if(valeur<=7){
+    }else if(valeur<=2){
         return 1;
     }else{
         return 2;
@@ -59,18 +59,49 @@ int humeurFruits(int valeur){
     }
 }
 
-void afficherResume(int conso[7]){
-    char tableau_humeur_bonbons[5][5]={"😇","🙂","😕","😈"};
-    char tableau_humeur_legumes[5][5]={"😭","🙂","😎"};
-    char tableau_humeur_fruits[5][5]={"😥","🙂","😄"};
-    printf("======== Resume du jour ========\nEau      :\t%d 💧\n", conso[0]);
-    printf("Cafe     :\t%d 🍵\n", conso[1]);
-    printf("Bonbons  :\t%d 🍬 %s\n", conso[2], tableau_humeur_bonbons[humeurBonbons(conso[2])]);
-    printf("Gateau   :\t%d 🍰\n", conso[3]);
-    printf("Legumes  :\t%d 🥦 %s\n", conso[4], tableau_humeur_legumes[humeurLegumes(conso[4])]);
-    printf("Fruits   :\t%d 🍎 %s\n", conso[5], tableau_humeur_fruits[humeurFruits(conso[5])]);
-    printf("Proteines:\t%d 🍗\n", conso[6]);
-    printf("===============================\n");
+void afficherBarre(int valeur, int max){
+    if(max<=0){
+        max=1;
+    }
+    // ░█
+    int casesPleines = (valeur*10)/max;
+    for (int i = 1; i <= 10; i++)
+    {
+        if(i<casesPleines){
+            printf("█");
+        }else{
+            printf("░");
+        }
+    }
+    
+}
+
+void afficherResume(int conso[7], int objectifs[7]){
+    char tableau_humeur_bonbons[10][10]={"😇","🙂","😕","😈"};
+    char tableau_humeur_legumes[10][10]={"😭","🙂","😎"};
+    char tableau_humeur_fruits[10][10]={"😥","🙂","😄"};
+    printf("======== Resume du jour ========\nEau      :\t%d 💧\t", conso[0]);
+    afficherBarre(conso[0],objectifs[0]);
+    
+    printf("\nCafe     :\t%d 🍵 ", conso[1]);
+    afficherBarre(conso[1], objectifs[1]);
+    
+    printf("\nBonbons  :\t%d 🍬 %s ", conso[2], tableau_humeur_bonbons[humeurBonbons(conso[2])]);
+    afficherBarre(conso[2], objectifs[2]);
+    
+    printf("\nGateau   :\t%d 🍰 ", conso[3]);
+    afficherBarre(conso[3], objectifs[3]);
+    
+    printf("\nLegumes  :\t%d 🥦 %s ", conso[4], tableau_humeur_legumes[humeurLegumes(conso[4])]);
+    afficherBarre(conso[4], objectifs[4]);
+    
+    printf("\nFruits   :\t%d 🍎 %s ", conso[5], tableau_humeur_fruits[humeurFruits(conso[5])]);
+    afficherBarre(conso[5], objectifs[5]);
+    
+    printf("\nProteines:\t%d 🍗 ", conso[6]);
+    afficherBarre(conso[6], objectifs[6]);
+    
+    printf("\n===============================\n");
 }
 
 int charger(int conso[7]){
@@ -103,6 +134,7 @@ void initialiser(int conso[7]){
 int main()
 {
     int conso[7];
+    int objectifs[]={8,0,0,0,5,3,2};
     if(charger(conso)==1){
         printf("Session chargée\n");
     }else{
@@ -120,9 +152,9 @@ int main()
                 ajouterConsommation(conso);
                 break;
             case 2:
-                afficherResume(conso);
+                afficherResume(conso, objectifs);
                 break;
-            case 3:
+            case 4:
                 if(sauvegarder(conso)==0){
                     printf("Erreur lors de la sauvegarde\n");
                 }else{
