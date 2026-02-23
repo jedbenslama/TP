@@ -2,6 +2,7 @@
 #include "types.h"
 #include <stdlib.h>
 #include "functions.c"
+#include <strings.h>
 
 int main(){
     int rangees;
@@ -13,7 +14,11 @@ int main(){
 
     Place *classe[rangees-1][tables-1];
     
-    printf("%s", readfile("liste.txt"));
+    char file_content[5000];
+    strcpy(file_content, readfile("liste.txt"));
+
+    int nombre_eleves;
+    char **listedechar = splitlines(file_content, &nombre_eleves);
     
     return 1;
 }
