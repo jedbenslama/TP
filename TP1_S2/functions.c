@@ -14,6 +14,5 @@ char *readfile(char filename[50]){
     while ((bytesRead = fread(file_content, 1, sizeof(file_content) - 1, fichier)) > 0){
         file_content[bytesRead]='\0';
     }
-    printf("%s", file_content);
     return file_content;
   }
