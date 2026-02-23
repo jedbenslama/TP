@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <strings.h>
 
-char *readfile(char filename[50]){
+char *readFile(char filename[50]){
     FILE *fichier = fopen(filename,"r");
     if(fichier==NULL){
         printf("erreur lors de la lecture du fichier");
@@ -19,7 +19,7 @@ char *readfile(char filename[50]){
     return file_content;
 }
 
-char **splitlines(const char text[], int *nombre_eleves) {
+char **splitLines(const char text[], int *nombre_eleves) {
     size_t tailletext = strlen(text);
     int max_lines = 50;
     char **listedechar = malloc(max_lines * sizeof(char *));
@@ -54,4 +54,14 @@ char **splitlines(const char text[], int *nombre_eleves) {
     *nombre_eleves = k;
     listedechar[k] = NULL; 
     return listedechar;
+}
+
+void initTables(Place classe[][50], int rangees, int tables){
+  for (int i = 0; i < rangees; i++){
+        for (int j = 0; j < tables; j++){
+            classe[i][j].rangee=i;
+            classe[i][j].table=j;
+            classe[i][j].occupee=0;
+        }
+    }
 }

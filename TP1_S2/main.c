@@ -12,13 +12,19 @@ int main(){
     printf("Combien de tables ?\n> ");
     scanf("%d",&tables);
 
-    Place *classe[rangees-1][tables-1];
+    Place classe[rangees][tables];
+    initTables(classe, rangees, tables);
     
     char file_content[5000];
-    strcpy(file_content, readfile("liste.txt"));
+    strcpy(file_content, readFile("liste.txt"));
 
     int nombre_eleves;
-    char **listedechar = splitlines(file_content, &nombre_eleves);
+    char **eleves = splitLines(file_content, &nombre_eleves);
+
+    
+    
+
+
     
     return 1;
 }
