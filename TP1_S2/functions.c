@@ -56,7 +56,7 @@ char **splitLines(const char text[], int *nombre_eleves) {
     return listedechar;
 }
 
-void initTables(Place classe[][50], int rangees, int tables){
+void initTables(int rangees, int tables, Place classe[rangees][tables]){
   for (int i = 0; i < rangees; i++){
         for (int j = 0; j < tables; j++){
             classe[i][j].rangee=i;
@@ -65,3 +65,5 @@ void initTables(Place classe[][50], int rangees, int tables){
         }
     }
 }
+
+void randomDispoition();
