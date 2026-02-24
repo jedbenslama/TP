@@ -79,7 +79,7 @@ void randomElevePasChoisi(int rangees, int tables, Place classe[rangees][tables]
     searching = 0;
     for (int i = 0; i < rangees; i++){
       for (int j = 0; j < tables; j++){
-        if(classe[i][j].eleve.nomcomplet == result){
+        if(strcmp(classe[i][j].eleve.nomcomplet, result)==0){
           searching = 1;
         }
       }
@@ -91,7 +91,7 @@ void placesRandom(int rangees, int tables, Place classe[rangees][tables], int no
   int places_choisies=0;
   while(places_choisies<nombre_eleves){
     int x = rand() % rangees;
-    int y = (rand() % rangees/2)*2;
+    int y = (rand() % tables/2)*2;
     if(!classe[x][y].occupee){
       char eleve_random[50];
       randomElevePasChoisi(rangees, tables, classe, nombre_eleves, eleves, eleve_random);
@@ -101,8 +101,24 @@ void placesRandom(int rangees, int tables, Place classe[rangees][tables], int no
       places_choisies++;
     }
   }
-  
 }
+
+void ajouterReste(int rangees, int tables, Place classe[rangees][tables], int nombre_eleves, char **eleves, int reste){
+  int places_choisies=0;
+  while(places_choisies<reste){
+    int x = rand() % rangees;
+    int y = rand() % tables;
+    if(!classe[x][y].occupee){
+      char eleve_random[50];
+      randomElevePasChoisi(rangees, tables, classe, nombre_eleves, eleves, eleve_random);
+      strcpy(classe[x][y].eleve.nomcomplet, eleve_random);
+      definirPrenomNomEleve(classe[x][y].eleve.prenom, classe[x][y].eleve.nom, classe[x][y].eleve.nomcomplet);
+      classe[x][y].occupee=1;
+      places_choisies++;
+    }
+  }
+}
+
 
 int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombre_eleves, Place classe[rangees][tables], int *eleves_places) { // on return un int pour savoir il reste combien d'eleves
   int restant;
@@ -115,14 +131,18 @@ int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombr
         definirPrenomNomEleve(classe[i][j].eleve.prenom, classe[i][j].eleve.nom, classe[i][j].eleve.nomcomplet);
         classe[i][j].occupee=1;
         *eleves_places+=1;
-        restant++;
       }
     }
   }
+  restant = nombre_eleves - *eleves_places;
   return restant;
 }
 
 void afficherClasse(int rangees, int tables, Place classe[rangees][tables]){ // y a encore une erreur de formatage dans la fonction qui lit liste.txt je pense donc je peux pas encore afficher les noms de familles
+  for (int i = 0; i < tables; i++){
+    printf("        %d\t",i);
+  }
+  printf("\n");
   for (int i = 0; i < rangees; i++){
     for (int j = 0; j < tables; j++){
       if(classe[i][j].occupee){

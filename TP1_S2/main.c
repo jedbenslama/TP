@@ -3,7 +3,7 @@
 int main(){
     srand(time(NULL));
 
-    
+
     int nb_rangees, nb_tables_par_rangee;
     printf("Combien de rangees ?\n> ");
     scanf("%d",&nb_rangees);
@@ -24,8 +24,10 @@ int main(){
     int eleves_places=0;
 
     if(nombre_eleves>=max){
-        randomDispositionUnSurDeux(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe, &eleves_places);
+        int restant = randomDispositionUnSurDeux(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe, &eleves_places);
+        afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
         // placer le reste de maniere random
+        ajouterReste(nb_rangees, nb_tables_par_rangee, classe, nombre_eleves, eleves, restant);
         afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
     }else{
         // on les place de maniere random
