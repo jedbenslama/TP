@@ -17,12 +17,11 @@ int main(){
     char **eleves = splitLines(file_content, &nombre_eleves);
 
     float max = ((nb_tables_par_rangee+1)/2)*nb_rangees; // le nombre max d'élèves par rangée vaut tables+1/2, on le multiplie par rangees pour savoir le max par classe
-    printf("%f", max);
-
-    printf("%s\n", eleves[0]);
+    
+    int eleves_places=0;
 
     if(nombre_eleves<=max){
-        randomDispositionUnSurDeux(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe);
+        randomDispositionUnSurDeux(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe, &eleves_places);
         afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
     }else{
         // on les place normalement puis on ajoute les excedents petit a petit

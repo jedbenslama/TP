@@ -88,17 +88,19 @@ void randomElevePasChoisi(int rangees, int tables, Place classe[rangees][tables]
   }
 }
 
-int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombre_eleves, Place classe[rangees][tables]) { // on return un int pour savoir il reste combien d'eleves
+int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombre_eleves, Place classe[rangees][tables], int *eleves_places) { // on return un int pour savoir il reste combien d'eleves
   int restant;
   for (int i = 0; i < rangees; i++){
     for (int j = 0; j < tables; j+=2){
-      printf("%d", j);
-      char eleve_random[50];
-      randomElevePasChoisi(rangees, tables, classe, nombre_eleves, eleves, eleve_random);
-      strcpy(classe[i][j].eleve.nomcomplet, eleve_random);
-      definirPrenomNomEleve(classe[i][j].eleve.prenom, classe[i][j].eleve.nom, classe[i][j].eleve.nomcomplet);
-      classe[i][j].occupee=1;
-      restant++;
+      if(*eleves_places < nombre_eleves){
+        char eleve_random[50];
+        randomElevePasChoisi(rangees, tables, classe, nombre_eleves, eleves, eleve_random);
+        strcpy(classe[i][j].eleve.nomcomplet, eleve_random);
+        definirPrenomNomEleve(classe[i][j].eleve.prenom, classe[i][j].eleve.nom, classe[i][j].eleve.nomcomplet);
+        classe[i][j].occupee=1;
+        *eleves_places+=1;
+        restant++;
+      }
     }
   }
   return restant;
