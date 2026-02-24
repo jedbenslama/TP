@@ -91,7 +91,7 @@ void randomElevePasChoisi(int rangees, int tables, Place classe[rangees][tables]
 int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombre_eleves, Place classe[rangees][tables]) { // on return un int pour savoir il reste combien d'eleves
   int restant;
   for (int i = 0; i < rangees; i++){
-    for (int j = 0; j < rangees; j+=2){
+    for (int j = 0; j < tables; j+=2){
       char eleve_random[50];
       randomElevePasChoisi(rangees, tables, classe, nombre_eleves, eleves, eleve_random);
       strcpy(classe[i][j].eleve.nomcomplet, eleve_random);
@@ -100,4 +100,12 @@ int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombr
     }
   }
   return restant;
+}
+
+void afficherClasse(int rangees, int tables, Place classe[rangees][tables]){
+  for (int i = 0; i < rangees; i++){
+    for (int j = 0; j < tables; j+=2){
+
+    }
+  }
 }

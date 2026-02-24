@@ -22,7 +22,7 @@ int main(){
     printf("%s\n", eleves[0]);
 
     if(nombre_eleves<=max){
-        randomDisposition(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe);
+        randomDispositionUnSurDeux(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe);
     }else{
         // on les place normalement puis on ajoute les excedents petit a petit
     }
