@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <time.h>
+#include "types.h"
 
 char *readFile(char filename[50]){
     FILE *fichier = fopen(filename,"r");
@@ -58,12 +60,44 @@ char **splitLines(const char text[], int *nombre_eleves) {
 
 void initTables(int rangees, int tables, Place classe[rangees][tables]){
   for (int i = 0; i < rangees; i++){
-        for (int j = 0; j < tables; j++){
-            classe[i][j].rangee=i;
-            classe[i][j].table=j;
-            classe[i][j].occupee=0;
-        }
+    for (int j = 0; j < tables; j++){
+      classe[i][j].rangee=i;
+      classe[i][j].table=j;
+      classe[i][j].occupee=0;
     }
+  }
 }
 
-void randomDispoition();
+void definirPrenomNomEleve(char prenom[15], char nom[15], char fullname[30]){
+  sscanf(fullname, "%s %s", prenom, nom);
+}
+
+void randomElevePasChoisi(int rangees, int tables, Place classe[rangees][tables], int nombre_eleves, char **eleves, char result[]){
+  srand(time(NULL));
+  int searching = 1;
+  while(searching){
+    strcpy(result, eleves[rand() % nombre_eleves]);
+    searching = 0;
+    for (int i = 0; i < rangees; i++){
+      for (int j = 0; j < tables; j++){
+        if(classe[i][j].eleve.nomcomplet == result){
+          searching = 1;
+        }
+      }
+    }
+  }
+}
+
+int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombre_eleves, Place classe[rangees][tables]) { // on return un int pour savoir il reste combien d'eleves
+  int restant;
+  for (int i = 0; i < rangees; i++){
+    for (int j = 0; j < rangees; j+=2){
+      char eleve_random[50];
+      randomElevePasChoisi(rangees, tables, classe, nombre_eleves, eleves, eleve_random);
+      strcpy(classe[i][j].eleve.nomcomplet, eleve_random);
+      definirPrenomNomEleve(classe[i][j].eleve.prenom, classe[i][j].eleve.nom, classe[i][j].eleve.nomcomplet);
+      restant++;
+    }
+  }
+  return restant;
+}

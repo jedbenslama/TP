@@ -1,18 +1,14 @@
-#include <stdio.h>
-#include "types.h"
-#include <stdlib.h>
 #include "functions.c"
-#include <strings.h>
 
 int main(){
-    int rangees, tables;
+    int nb_rangees, nb_tables_par_rangee;
     printf("Combien de rangees ?\n> ");
-    scanf("%d",&rangees);
+    scanf("%d",&nb_rangees);
     printf("Combien de tables ?\n> ");
-    scanf("%d",&tables);
+    scanf("%d",&nb_tables_par_rangee);
 
-    Place classe[rangees][tables];
-    initTables(rangees, tables, classe);
+    Place classe[nb_rangees][nb_tables_par_rangee];
+    initTables(nb_rangees, nb_tables_par_rangee, classe);
     
     char file_content[5000];
     strcpy(file_content, readFile("liste.txt"));
@@ -20,12 +16,17 @@ int main(){
     int nombre_eleves;
     char **eleves = splitLines(file_content, &nombre_eleves);
 
-    float max = ((tables+1)/2)*rangees; // le nombre max d'élèves par rangée vaut tables+1/2, on le multiplie par rangees pour savoir le max par classe
+    float max = ((nb_tables_par_rangee+1)/2)*nb_rangees; // le nombre max d'élèves par rangée vaut tables+1/2, on le multiplie par rangees pour savoir le max par classe
     printf("%f", max);
 
+    printf("%s\n", eleves[0]);
+
     if(nombre_eleves<=max){
-        //
+        randomDisposition(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe);
+    }else{
+        // on les place normalement puis on ajoute les excedents petit a petit
     }
+    
     
     return 1;
 }
