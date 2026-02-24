@@ -23,6 +23,7 @@ int main(){
 
     if(nombre_eleves<=max){
         randomDispositionUnSurDeux(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe);
+        afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
     }else{
         // on les place normalement puis on ajoute les excedents petit a petit
     }

@@ -96,6 +96,7 @@ int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombr
       randomElevePasChoisi(rangees, tables, classe, nombre_eleves, eleves, eleve_random);
       strcpy(classe[i][j].eleve.nomcomplet, eleve_random);
       definirPrenomNomEleve(classe[i][j].eleve.prenom, classe[i][j].eleve.nom, classe[i][j].eleve.nomcomplet);
+      classe[i][j].occupee=1;
       restant++;
     }
   }
@@ -105,7 +106,8 @@ int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombr
 void afficherClasse(int rangees, int tables, Place classe[rangees][tables]){
   for (int i = 0; i < rangees; i++){
     for (int j = 0; j < tables; j+=2){
-
+      printf("%d ", classe[i][j].occupee);
     }
+    printf("\n");
   }
 }
