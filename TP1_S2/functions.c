@@ -88,6 +88,23 @@ void randomElevePasChoisi(int rangees, int tables, Place classe[rangees][tables]
   }
 }
 
+void placesRandom(int rangees, int tables, Place classe[rangees][tables], int nombre_eleves, char **eleves){
+  int places_choisies=0;
+  while(places_choisies<nombre_eleves){
+    int x = rand() % rangees;
+    int y = (rand() % rangees/2)*2;
+    if(!classe[x][y].occupee){
+      char eleve_random[50];
+      randomElevePasChoisi(rangees, tables, classe, nombre_eleves, eleves, eleve_random);
+      strcpy(classe[x][y].eleve.nomcomplet, eleve_random);
+      definirPrenomNomEleve(classe[x][y].eleve.prenom, classe[x][y].eleve.nom, classe[x][y].eleve.nomcomplet);
+      classe[x][y].occupee=1;
+      places_choisies++;
+    }
+  }
+  
+}
+
 int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombre_eleves, Place classe[rangees][tables], int *eleves_places) { // on return un int pour savoir il reste combien d'eleves
   int restant;
   for (int i = 0; i < rangees; i++){

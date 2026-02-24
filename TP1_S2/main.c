@@ -20,11 +20,14 @@ int main(){
     
     int eleves_places=0;
 
-    if(nombre_eleves<=max){
+    if(nombre_eleves>=max){
         randomDispositionUnSurDeux(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe, &eleves_places);
+        // placer le reste de maniere random
         afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
     }else{
-        // on les place normalement puis on ajoute les excedents petit a petit
+        // on les place de maniere random
+        placesRandom(nb_rangees, nb_tables_par_rangee, classe, nombre_eleves, eleves);
+        afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
     }
     
     
