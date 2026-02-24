@@ -73,7 +73,6 @@ void definirPrenomNomEleve(char prenom[15], char nom[15], char fullname[30]){
 }
 
 void randomElevePasChoisi(int rangees, int tables, Place classe[rangees][tables], int nombre_eleves, char **eleves, char result[]){
-  srand(time(NULL));
   int searching = 1;
   while(searching){
     strcpy(result, eleves[rand() % nombre_eleves]);
@@ -123,10 +122,18 @@ int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombr
   return restant;
 }
 
-void afficherClasse(int rangees, int tables, Place classe[rangees][tables]){
+void afficherClasse(int rangees, int tables, Place classe[rangees][tables]){ // y a encore une erreur de formatage dans la fonction qui lit liste.txt je pense donc je peux pas encore afficher les noms de familles
   for (int i = 0; i < rangees; i++){
     for (int j = 0; j < tables; j++){
-      printf("%d ", classe[i][j].occupee);
+      if(classe[i][j].occupee){
+        if(strlen(classe[i][j].eleve.prenom)>=4){
+          printf("|   %s\t", classe[i][j].eleve.prenom);
+        }else{
+          printf("|   %s\t\t", classe[i][j].eleve.prenom);
+        }
+      }else{
+        printf("|\tX\t");
+      }
     }
     printf("\n");
   }

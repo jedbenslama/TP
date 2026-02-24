@@ -1,6 +1,9 @@
 #include "functions.c"
 
 int main(){
+    srand(time(NULL));
+
+    
     int nb_rangees, nb_tables_par_rangee;
     printf("Combien de rangees ?\n> ");
     scanf("%d",&nb_rangees);
