@@ -25,14 +25,14 @@ int main(){
 
     if(nombre_eleves>=max){
         int restant = randomDispositionUnSurDeux(nb_rangees, nb_tables_par_rangee, eleves, nombre_eleves, classe, &eleves_places);
-        afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
-        // placer le reste de maniere random
         ajouterReste(nb_rangees, nb_tables_par_rangee, classe, nombre_eleves, eleves, restant);
         afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
+        writeFile(nb_rangees, nb_tables_par_rangee, classe, "plan.txt");
     }else{
         // on les place de maniere random
         placesRandom(nb_rangees, nb_tables_par_rangee, classe, nombre_eleves, eleves);
         afficherClasse(nb_rangees, nb_tables_par_rangee, classe);
+        writeFile(nb_rangees, nb_tables_par_rangee, classe, "plan.txt");
     }
     
     

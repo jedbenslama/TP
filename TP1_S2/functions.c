@@ -10,15 +10,34 @@ char *readFile(char filename[50]){
         printf("erreur lors de la lecture du fichier");
         exit(67);
     }
-    
-    
-    
     static char file_content[3000]; // static car la memoire serait libérée apres l utilisation de la fonction
     size_t bytesRead;
     while ((bytesRead = fread(file_content, 1, sizeof(file_content) - 1, fichier)) > 0){
         file_content[bytesRead]='\0';
     }
     return file_content;
+}
+
+void writeFile(int rangees, int tables, Place classe[rangees][tables], char filename[50]){
+  FILE *fichier = fopen(filename, "w");
+  for (int i = 0; i < tables; i++){
+    fprintf(fichier, "        %d\t",i);
+  }
+  fprintf(fichier, "\n");
+  for (int i = 0; i < rangees; i++){
+    for (int j = 0; j < tables; j++){
+      if(classe[i][j].occupee){
+        if(strlen(classe[i][j].eleve.prenom)>=4){
+          fprintf(fichier, "|   %s\t", classe[i][j].eleve.prenom);
+        }else{
+          fprintf(fichier, "|   %s\t\t", classe[i][j].eleve.prenom);
+        }
+      }else{
+        fprintf(fichier, "|\tX\t");
+      }
+    }
+    fprintf(fichier, "\n");
+  }
 }
 
 char **splitLines(const char text[], int *nombre_eleves) {
@@ -138,7 +157,7 @@ int randomDispositionUnSurDeux(int rangees, int tables, char **eleves, int nombr
   return restant;
 }
 
-void afficherClasse(int rangees, int tables, Place classe[rangees][tables]){ // y a encore une erreur de formatage dans la fonction qui lit liste.txt je pense donc je peux pas encore afficher les noms de familles
+void afficherClasse(int rangees, int tables, Place classe[rangees][tables]){
   for (int i = 0; i < tables; i++){
     printf("        %d\t",i);
   }
