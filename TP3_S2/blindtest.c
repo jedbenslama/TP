@@ -202,6 +202,66 @@ void melanger_chansons(int nombre_chansons, Chanson *premierechanson){
         strcpy(chanson2->artiste, tmp_artiste);
     }
 }
+
+int charger_scores(char filename[], Joueur *premierjoueur) { // renommée pour mieux correspondre aux instructions de l'exo
+    FILE *f;
+    char line[3 * 256];
+    int count = 0;
+
+    f = fopen(filename, "r");
+    if (f == NULL) {
+        perror("Erreur ouverture scores.txt");
+        return -1;
+    }
+
+    while (fgets(line, sizeof(line), f) != NULL && count < 100) {
+        char *nom;
+        int score;
+
+        trim_newline(line);
+
+        if (strlen(line) == 0) {
+            continue;
+        }
+
+        nom = strtok(line, ";");
+        score = atoi(strtok(NULL, ";"));
+
+        if (nom == NULL || score == 0) {
+            printf("Ligne ignoree dans scores.txt.\n");
+            continue;
+        }
+
+        strcpy(premierjoueur->nom, nom);
+        premierjoueur->score = score;
+        premierjoueur->suivant = malloc(sizeof(Joueur));
+        premierjoueur = premierjoueur->suivant;
+
+        count++;
+    }
+
+    fclose(f);
+    return count;
+}
+
+void update_score(int nombre_joueurs, Joueur *premierjoueur, char nomjoueur[], int newscore){
+    Joueur *current = premierjoueur;
+    for (int i = 0; i < nombre_joueurs; i++) {
+        if(strcmp(nomjoueur, current->nom)==0){
+            current->score = newscore;
+        }
+        current = current->suivant;
+    }
+}
+void sauver_scores(char nomfichier[], int nombre_joueurs, Joueur *premierjoueur){
+    FILE *f;
+    f = fopen(nomfichier, "w");
+    Joueur *current = premierjoueur;
+    for (int i = 0; i < nombre_joueurs; i++) {
+        fprintf(f, "%s;%d", current->nom, current->score);
+        current = current->suivant;
+    }
+}
 /* -------------------------------------------------- */
 /* PROGRAMME PRINCIPAL                                */
 /* -------------------------------------------------- */
