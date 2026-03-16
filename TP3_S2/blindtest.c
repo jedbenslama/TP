@@ -91,7 +91,7 @@ void play_song_excerpt_at(const char *filename, int start, int seconds) {
 Charge les morceaux depuis songs.txt dans un tableau.
 Retourne le nombre de morceaux chargés.
 */
-int load_songs(char filename[], Chanson *premierechanson) {
+int charger_chansons(char filename[], Chanson *premierechanson) { // renommée pour mieux correspondre aux instructions de l'exo
     FILE *f;
     char line[3 * 256];
     int count = 0;
@@ -167,6 +167,41 @@ void swap_chansons(int nombre_chansons, Chanson *premierechanson, int pos1, int 
     strcpy(chanson2->artiste, tmp_artiste);
 }
 
+void melanger_chansons(int nombre_chansons, Chanson *premierechanson){
+    for (int i = 0; i < nombre_chansons*5; i++){ // *5 pour bien mélanger après ça va pas changer grand chose
+        int pos1 = rand() % (nombre_chansons-1);
+        int pos2 = rand() % (nombre_chansons-1);
+        if (pos1 == pos2){
+            return;
+        }
+        Chanson *chanson1;
+        Chanson *chanson2;
+        Chanson *current = premierechanson;
+    
+        for (int i = 0; i < nombre_chansons; i++) {
+            if (i == pos1)
+                chanson1 = current;
+            if (i == pos2)
+                chanson2 = current;
+            current = current->suivant;
+        }
+        char tmp_path[100];
+        char tmp_nom[100];
+        char tmp_artiste[100];
+    
+        strcpy(tmp_path, chanson1->path);
+        strcpy(tmp_nom, chanson1->nom);
+        strcpy(tmp_artiste, chanson1->artiste);
+    
+        strcpy(chanson1->path, chanson2->path);
+        strcpy(chanson1->nom, chanson2->nom);
+        strcpy(chanson1->artiste, chanson2->artiste);
+    
+        strcpy(chanson2->path, tmp_path);
+        strcpy(chanson2->nom, tmp_nom);
+        strcpy(chanson2->artiste, tmp_artiste);
+    }
+}
 /* -------------------------------------------------- */
 /* PROGRAMME PRINCIPAL                                */
 /* -------------------------------------------------- */
@@ -174,18 +209,15 @@ void swap_chansons(int nombre_chansons, Chanson *premierechanson, int pos1, int 
 int main() {
     srand(time(NULL));
     Chanson *premierechanson = malloc(sizeof(Chanson));
-    int nombre_chansons = load_songs("songs.txt", premierechanson);
+    int nombre_chansons = charger_chansons("songs.txt", premierechanson);
     Chanson *current = premierechanson;
     for (int i = 0; i < nombre_chansons; i++){
         printf("%s %s  \t%s\n", current->path, current->nom, current->artiste);
         current = current->suivant;
     }
 
-    for (int i = 0; i < nombre_chansons*5; i++){ // *5 pour bien mélanger après ça va pas changer grand chose
-        int pos1 = rand() % (nombre_chansons-1);
-        int pos2 = rand() % (nombre_chansons-1);
-        swap_chansons(nombre_chansons, premierechanson, pos1, pos2);
-    }
+    melanger_chansons(nombre_chansons, premierechanson);
+    
     printf("\n");
     current = premierechanson;
     for (int i = 0; i < nombre_chansons; i++){
@@ -217,7 +249,7 @@ int main() {
         current_joueur = current_joueur->suivant;
     }
 
-    
+
 
     return 0;
 }
