@@ -135,12 +135,44 @@ int load_songs(char filename[], Chanson *premierechanson) {
     return count;
 }
 
+void swap_chansons(int nombre_chansons, Chanson *premierechanson, int pos1, int pos2) {
+    if (pos1 == pos2){
+        return;
+    }
+    Chanson *chanson1;
+    Chanson *chanson2;
+    Chanson *current = premierechanson;
+
+    for (int i = 0; i < nombre_chansons; i++) {
+        if (i == pos1)
+            chanson1 = current;
+        if (i == pos2)
+            chanson2 = current;
+        current = current->suivant;
+    }
+    char tmp_path[100];
+    char tmp_nom[100];
+    char tmp_artiste[100];
+
+    strcpy(tmp_path, chanson1->path);
+    strcpy(tmp_nom, chanson1->nom);
+    strcpy(tmp_artiste, chanson1->artiste);
+
+    strcpy(chanson1->path, chanson2->path);
+    strcpy(chanson1->nom, chanson2->nom);
+    strcpy(chanson1->artiste, chanson2->artiste);
+
+    strcpy(chanson2->path, tmp_path);
+    strcpy(chanson2->nom, tmp_nom);
+    strcpy(chanson2->artiste, tmp_artiste);
+}
+
 /* -------------------------------------------------- */
 /* PROGRAMME PRINCIPAL                                */
 /* -------------------------------------------------- */
 
 int main() {
-
+    srand(time(NULL));
     Chanson *premierechanson = malloc(sizeof(Chanson));
     int nombre_chansons = load_songs("songs.txt", premierechanson);
     Chanson *current = premierechanson;
@@ -148,5 +180,44 @@ int main() {
         printf("%s %s  \t%s\n", current->path, current->nom, current->artiste);
         current = current->suivant;
     }
+
+    for (int i = 0; i < nombre_chansons*5; i++){ // *5 pour bien mélanger après ça va pas changer grand chose
+        int pos1 = rand() % (nombre_chansons-1);
+        int pos2 = rand() % (nombre_chansons-1);
+        swap_chansons(nombre_chansons, premierechanson, pos1, pos2);
+    }
+    printf("\n");
+    current = premierechanson;
+    for (int i = 0; i < nombre_chansons; i++){
+        printf("%s %s  \t%s\n", current->path, current->nom, current->artiste);
+        current = current->suivant;
+    }
+    printf("\n");
+    printf("Combien de joueurs voulez vous ?\n> ");
+
+    int nombre_joueurs;
+    Joueur *premierjoueur = malloc(sizeof(Joueur));
+
+    scanf("%d", &nombre_joueurs);
+    getchar();
+
+    Joueur *current_joueur = premierjoueur;
+    
+    for (int i = 0; i < nombre_joueurs; i++){
+        printf("Nom du joueur %d: > ", i+1);
+        fgets(current_joueur->nom, 100, stdin);
+        current_joueur->nom[strcspn(current_joueur->nom, "\n")] = '\0';
+        current_joueur->suivant = malloc(sizeof(Joueur));
+        current_joueur = current_joueur->suivant;
+    }
+    current_joueur = premierjoueur;
+    printf("\n");
+    for (int i = 0; i < nombre_joueurs; i++){
+        printf("Nom du joueur %d: %s\n", i+1, current_joueur->nom);
+        current_joueur = current_joueur->suivant;
+    }
+
+    
+
     return 0;
 }
