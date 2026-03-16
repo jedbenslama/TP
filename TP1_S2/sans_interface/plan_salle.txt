@@ -1,0 +1,29 @@
+
+PLAN DE SALLE
+
+                         1            2            3            4            5            6            7            8            9           10
+            1 Alexandre MO            X            X      Amal EL            X            X     Hatem MA            X            X   Florian BA
+            2   Mathieu BE            X            X      Malo HA            X            X     Edgar PU            X            X      Adam JA
+            3     Lucas VE            X            X            X     Louis BO            X            X            X   Wilhelm MA            X
+            4     Louis BL            X            X            X   Anatole MA            X            X            X     Louis GU            X
+            5   Anaelle SO            X            X            X       Jed BE            X            X            X     Lucas CO            X
+
+
+      Prenom                  Nom Rang Table
+   Alexandre               MOULIS    1     1
+        Amal             ELHIRECH    1     4
+       Hatem            MARHRAOUI    1     7
+     Florian               BAILLY    1    10
+     Mathieu              BERTRON    2     1
+        Malo                HAMON    2     4
+       Edgar               PULLES    2     7
+        Adam           JAKUBOWSKI    2    10
+       Lucas               VERRON    3     1
+       Louis            BORDELAIS    3     5
+     Wilhelm             MACAIGNE    3     9
+       Louis                BLANC    4     1
+     Anatole              MAURIAC    4     5
+       Louis               GUERIN    4     9
+     Anaelle      SOUINI-RENAUDON    5     1
+         Jed             BENSLAMA    5     5
+       Lucas               COELHO    5     9

@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "windows.h"
 
 #define ID_BTN_OK  1
 #define ID_EDIT    2
