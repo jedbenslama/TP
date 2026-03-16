@@ -1,0 +1,5 @@
+musics\song1.mp3;ne m'oublie pas;Coco
+musics\song2.mp3;Je Suis Malade;Dalida et Serge Lama
+musics\song3.mp3;Hakuna Matata;Le Roi Lion
+musics\song4.mp3;Mon Fils Ma Bataille;Daniel Balavoine
+musics\song5.mp3;Hotel California;Eagles
