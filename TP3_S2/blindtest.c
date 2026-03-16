@@ -211,7 +211,7 @@ int charger_scores(char filename[], Joueur *premierjoueur) { // renommée pour m
     f = fopen(filename, "r");
     if (f == NULL) {
         perror("Erreur ouverture scores.txt");
-        return -1;
+        return 0;
     }
 
     while (fgets(line, sizeof(line), f) != NULL && count < 100) {
@@ -284,16 +284,27 @@ int main() {
         printf("%s %s  \t%s\n", current->path, current->nom, current->artiste);
         current = current->suivant;
     }
+
+    Joueur *premierjoueur = malloc(sizeof(Joueur));
+    int initial_nombre_joueurs = charger_scores("scores.txt", premierjoueur);
+
     printf("\n");
-    printf("Combien de joueurs voulez vous ?\n> ");
+    printf("Joueurs chargés: %d\n", initial_nombre_joueurs);
+    Joueur *current_joueur = premierjoueur;
+    for (int i = 0; i < initial_nombre_joueurs; i++){
+        printf("Nom du joueur %d: %s\n", i+1, current_joueur->nom);
+        current_joueur = current_joueur->suivant;
+    }
+
+    printf("\n");
+    printf("Combien de NOUVEAUX joueurs voulez vous ?\n> ");
 
     int nombre_joueurs;
-    Joueur *premierjoueur = malloc(sizeof(Joueur));
-
     scanf("%d", &nombre_joueurs);
+    nombre_joueurs += initial_nombre_joueurs;
     getchar();
 
-    Joueur *current_joueur = premierjoueur;
+    current_joueur = premierjoueur;
     
     for (int i = 0; i < nombre_joueurs; i++){
         printf("Nom du joueur %d: > ", i+1);
@@ -309,7 +320,29 @@ int main() {
         current_joueur = current_joueur->suivant;
     }
 
-
+    current_joueur = premierjoueur;
+    for (int i = 0; i < nombre_joueurs; i++){
+        current = premierechanson;
+        int current_score = 0;
+        for (int j = 0; j < nombre_chansons; j++){
+            int result = 0;
+            play_song_excerpt_at(current->nom, rand() % 60,10);
+            char current_essai[100];
+            printf("Quel est le titre de la chanson ?\n> ");
+            fgets(current_essai, 100, stdin);
+            if (string_equals_normalized(current_essai, current->nom)){
+                result = 1;
+            }
+            current_score += result;
+            current = current->suivant;
+        }
+        if(current_joueur->score < current_score){
+            current_joueur->score = current_score;
+        }
+        
+        current_joueur = current_joueur->suivant;
+    }
+    
 
     return 0;
 }
