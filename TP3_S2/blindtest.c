@@ -347,9 +347,9 @@ int main() {
         printf("Nom du joueur %d: %s\n", i+1, current_joueur->nom);
         current_joueur = current_joueur->suivant;
     }
-    printf("\n");
     current_joueur = premierjoueur;
     for (int i = 0; i < nombre_joueurs; i++){
+        printf("\n");
         printf("Joueur actuel: %s\n", current_joueur->nom);
         current = premierechanson;
         int current_score = 0;
