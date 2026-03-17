@@ -258,8 +258,36 @@ void sauver_scores(char nomfichier[], int nombre_joueurs, Joueur *premierjoueur)
     f = fopen(nomfichier, "w");
     Joueur *current = premierjoueur;
     for (int i = 0; i < nombre_joueurs; i++) {
-        fprintf(f, "%s;%d", current->nom, current->score);
+        fprintf(f, "%s;%d\n", current->nom, current->score);
         current = current->suivant;
+    }
+}
+void afficher_scores(int nombre_joueurs, Joueur *premierjoueur) {
+    char noms[100][100];
+    int scores[100];
+    Joueur *current = premierjoueur;
+    for (int i = 0; i < nombre_joueurs; i++){
+        strcpy(noms[i], current->nom);
+        scores[i] = current->score;
+        current = current->suivant;
+    }
+    for (int i = 1; i < nombre_joueurs; i++) {
+        int tmp_score = scores[i];
+        char tmp_nom[100];
+        strcpy(tmp_nom, noms[i]);
+        int j = i - 1;
+        while (j >= 0 && scores[j] > tmp_score) {
+            scores[j + 1] = scores[j];
+            strcpy(noms[j + 1], noms[j]);
+            j--;
+        }
+        scores[j + 1] = tmp_score;
+        strcpy(noms[j + 1], tmp_nom);
+    }
+
+    printf("Classement des scores (all time):\n");
+    for (int i = 0; i < nombre_joueurs; i++) {
+        printf("  %d. %s : %d\n", i + 1, noms[i], scores[i]);
     }
 }
 /* -------------------------------------------------- */
@@ -301,7 +329,6 @@ int main() {
 
     int nombre_joueurs;
     scanf("%d", &nombre_joueurs);
-    nombre_joueurs += initial_nombre_joueurs;
     getchar();
 
     current_joueur = premierjoueur;
@@ -313,15 +340,17 @@ int main() {
         current_joueur->suivant = malloc(sizeof(Joueur));
         current_joueur = current_joueur->suivant;
     }
+    nombre_joueurs += initial_nombre_joueurs;
     current_joueur = premierjoueur;
     printf("\n");
     for (int i = 0; i < nombre_joueurs; i++){
         printf("Nom du joueur %d: %s\n", i+1, current_joueur->nom);
         current_joueur = current_joueur->suivant;
     }
-
+    printf("\n");
     current_joueur = premierjoueur;
     for (int i = 0; i < nombre_joueurs; i++){
+        printf("Joueur actuel: %s\n", current_joueur->nom);
         current = premierechanson;
         int current_score = 0;
         for (int j = 0; j < nombre_chansons; j++){
@@ -337,12 +366,19 @@ int main() {
             current = current->suivant;
         }
         if(current_joueur->score < current_score){
-            current_joueur->score = current_score;
+            current_joueur->score = current_score; // en soit utiliser update_score est optionnel ici
         }
-        
         current_joueur = current_joueur->suivant;
     }
-    
+    sauver_scores("scores.txt", nombre_joueurs, premierjoueur);
+    printf("\nOrdre correct:\n");
+    current = premierechanson;
+    for (int i = 0; i < nombre_chansons; i++){
+        printf("%d. %s - %s\n", i+1, current->nom, current->artiste);
+        current = current->suivant;
+    }
+    printf("\n");
+    afficher_scores(nombre_joueurs, premierjoueur);
 
     return 0;
 }
